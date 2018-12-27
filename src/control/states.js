@@ -120,7 +120,7 @@ const states = {
     setTimeout(() => {
       store.dispatch(actions.lock(false));
       store.dispatch(actions.moveBlock({ type: store.getState().get('next') }));
-      store.dispatch(actions.nextBlock());
+      store.dispatch(actions.nextBlock(store.getState().get('next')));
       states.auto();
     }, 100);
   },
@@ -158,7 +158,7 @@ const states = {
     });
     store.dispatch(actions.matrix(newMatrix));
     store.dispatch(actions.moveBlock({ type: state.get('next') }));
-    store.dispatch(actions.nextBlock());
+    store.dispatch(actions.nextBlock(state.get('next')));
     states.auto();
     store.dispatch(actions.lock(false));
     const clearLines = state.get('clearLines') + lines.length;

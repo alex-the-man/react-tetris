@@ -26,9 +26,22 @@ const isFocus = () => {
 };
 
 const unit = {
-  getNextType() { // 随机获取下一个方块类型
+  getNextType(lastBlock) { // 随机获取下一个方块类型
     const len = blockType.length;
-    return blockType[Math.floor(Math.random() * len)];
+    let nextBlock = blockType[Math.floor(Math.random() * len)];
+
+    if (lastBlock == null || lastBlock === undefined) {
+      return nextBlock;
+    }
+
+    // From https://meatfighter.com/nintendotetrisai/#Picking_Tetriminos
+    // The original Tetris avoids picking the same Tetriminos twice in a row.
+    // When that happens it re-picks the Tetriminos.
+    if (nextBlock === lastBlock) {
+      nextBlock = blockType[Math.floor(Math.random() * len)];
+    }
+
+    return nextBlock;
   },
   want(next, matrix) { // 方块是否能移到到指定位置
     const xy = next.xy;
