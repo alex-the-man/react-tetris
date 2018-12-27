@@ -30,6 +30,9 @@ class App extends React.Component {
   }
   componentWillMount() {
     window.addEventListener('resize', this.resize.bind(this), true);
+    window.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: false });
+
+    document.addEventListener('touchend', e => { e.preventDefault(); }, true);
   }
   componentDidMount() {
     if (visibilityChangeEvent) { // 将页面的焦点变换写入store
